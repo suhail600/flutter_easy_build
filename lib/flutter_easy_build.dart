@@ -1,17 +1,46 @@
+/// A simple command-line tool to automate Flutter APK builds,
+/// streamlining the process of building, renaming, and opening
+/// the output directory.
+///
+/// This tool reads version information from the `pubspec.yaml` file,
+/// cleans the project (optional), builds the APK in release mode,
+/// renames the APK with a timestamp and version, and then opens
+/// the directory containing the generated APK in the system's file explorer.
+///
+/// Usage:
+///
+/// 1.  Run `flutter_easy_build buildApk` to build the APK.
+/// 2.  Run `flutter_easy_build cleanAndBuild` to clean the project and then build the APK.
+
+library;
+
 import 'dart:convert';
 import 'dart:io';
 
+/// ANSI escape code to reset text formatting.
 const _reset = '\x1B[0m';
+
+/// ANSI escape code for blue text.
 const _bl = '\x1B[34m';
+
+/// ANSI escape code for green text.
 const _gr = '\x1B[32m';
+
+/// ANSI escape code for red text.
 const _rd = '\x1B[31m';
+
+/// ANSI escape code for yellow text.
 const _yl = '\x1B[33m';
+
+/// ANSI escape code for white text.
 const _wt = '\x1B[37m';
 
+/// Log data
 void _logData(String key, String msg, {String clr = _reset}) {
   print('$clr[$key] $msg\x1B[0m');
 }
 
+/// Handle process
 Future<void> _handleProcess(Process process, String key) async {
   process.stdout.transform(const Utf8Decoder()).listen((data) {
     _logData(key, data, clr: _wt);
@@ -33,11 +62,13 @@ Future<void> _handleProcess(Process process, String key) async {
   }
 }
 
+/// Get formatted date and time
 String _getFormattedDt() {
   final now = DateTime.now();
   return '${now.day.toString().padLeft(2, '0')}${now.month.toString().padLeft(2, '0')}${now.year.toString().substring(2)}${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}';
 }
 
+/// Open directory
 Future<void> _openDir(String apkPath) async {
   final dirPath = Directory(apkPath).parent.path;
 
@@ -54,8 +85,10 @@ Future<void> _openDir(String apkPath) async {
   _logData('INFO', 'Opening APK directory: $dirPath', clr: _bl);
 }
 
+///   - [cleanAndBuild] to clean the project before building.
 Future<void> cleanAndBuild() async => await _buildApk(clean: true);
 
+///   - [buildApk] for building the APK without cleaning.
 Future<void> buildApk() async => await _buildApk(clean: false);
 
 Future<void> _buildApk({required bool clean}) async {
@@ -87,12 +120,12 @@ Future<void> _buildApk({required bool clean}) async {
     final buildProcess = await Process.start(flutterPath, ['build', 'apk']);
     await _handleProcess(buildProcess, 'BUILD');
 
-    // APK build was successful, rename the APK file
+    /// APK build was successful, rename the APK file
     const apkPath = 'build\\app\\outputs\\flutter-apk\\app-release.apk';
     final apkFile = File(apkPath);
 
     if (apkFile.existsSync()) {
-      // Regular expression to find the app name
+      /// Regular expression to find the app name
       final nameRegex = RegExp(r'name:\s*(\S+)');
       final nameMatch = nameRegex.firstMatch(content);
       final appName = nameMatch?.group(1) ?? 'app-name'; // name if not found
