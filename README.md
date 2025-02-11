@@ -1,6 +1,6 @@
 # Flutter Easy Build
 
-Simple CLI to build and launch Flutter APKs.
+Simple CLI, **fully written in Dart**, to streamline Flutter APK and AAB building, and open the output folder.
 
 ## Features
 
