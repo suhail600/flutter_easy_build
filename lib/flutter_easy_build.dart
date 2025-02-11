@@ -91,6 +91,7 @@ Future<void> cleanAndBuild() async => await _buildApk(clean: true);
 ///   - [buildApk] for building the APK without cleaning.
 Future<void> buildApk() async => await _buildApk(clean: false);
 
+/// Build APK function
 Future<void> _buildApk({required bool clean}) async {
   _logData('INFO', 'Current directory: ${Directory.current.path}', clr: _bl);
 
@@ -137,7 +138,9 @@ Future<void> _buildApk({required bool clean}) async {
         'INFO',
         'APK file renamed to : $newApkName\n[INFO] APK file at : $newApkPath',
         clr: _gr,
-      ); // Green
+      );
+
+      /// Green text
 
       await _openDir(newApkPath);
     } else {
