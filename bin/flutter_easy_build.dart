@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter_easy_build/build_apk.dart';
+import 'package:flutter_easy_build/flutter_easy_build.dart';
 
 void main(List<String> args) {
   if (args.isEmpty) {
