@@ -1,0 +1,15 @@
+name: flutter_easy_build
+description: A CLI tool to build and open APK directories in Flutter projects.
+version: 1.0.0
+homepage: https://github.com/suhail600/flutter_easy_build
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+
+dev_dependencies:
+  lints: ^5.0.0
+
+executables:
+  flutter_easy_build: flutter_easy_build
