@@ -19,6 +19,12 @@ From your Flutter project:
 *   `flutter_easy_build buildApk`
 *   `flutter_easy_build cleanAndBuild`
 
+## 🧩Screenshots
+
+| Flutter Easy Build                                                                                                         |
+|-----------------------------------------------------------------------------------------------------------------------------|
+|![image](https://github.com/user-attachments/assets/8968b9da-a86e-43de-9f62-4b3873f61175)|
+
 ## 🧑‍💻 Developed By
 
 ```
